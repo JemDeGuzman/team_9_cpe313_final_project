@@ -12,8 +12,7 @@ from utils.image_converter import convert_to_images
 
 def display_image(image_path):
     img = cv2.imread(image_path)
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
-    st.image(img_rgb, caption="Generated Image", use_column_width=True)
+    st.image(img, caption="Generated Image", use_column_width=True)
 
 st.set_page_config(page_title="Network Anomaly Classifier", layout="wide")
 st.title("Network Packet Anomaly Detection & Classification")
