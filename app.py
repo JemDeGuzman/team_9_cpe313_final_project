@@ -9,6 +9,11 @@ from models.cnn_classifier import classify_images
 from utils.parquet_loader import load_and_preprocess_parquet
 from utils.image_converter import convert_to_images
 
+def display_image(image_path):
+    img = cv2.imread(image_path)
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+    st.image(img_rgb, caption="Generated Image", use_column_width=True)
+
 st.set_page_config(page_title="Network Anomaly Classifier", layout="wide")
 st.title("Network Packet Anomaly Detection & Classification")
 
@@ -27,7 +32,7 @@ if uploaded_file is not None:
         parquet_paths=[parquet_path],
         train_on_benign_only=True
     )
-
+    
     input_dim = features_scaled.shape[1]
     st.write(f"Loaded {len(features_scaled)} samples with {input_dim} features each.")
 
@@ -51,15 +56,12 @@ if uploaded_file is not None:
     label_name = "Anomaly"
     feature_count = 77 
 
-    paths = convert_to_images(df_anomalies, label_name, feature_count)
+    if st.button("Generate Image from Anomalies"):
+        image_paths = convert_to_images(anomalous_df, "Anomalous", feature_count=77)
+        for path in image_paths:
+            display_image(path)
+            
     st.success("Images created in 'data/converted_images/Anomaly/'")
-
-    def display_image(image_path):
-        img = cv2.imread(image_path)
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
-        st.image(img_rgb, caption="Generated Image", use_column_width=True)
-
-    display_image(paths[0])
 
     st.subheader("Classifying anomaly images using CNN...")
 
