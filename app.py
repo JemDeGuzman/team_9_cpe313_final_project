@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import tempfile
+import cv2
 from tensorflow.keras.models import load_model
 from models.autoencoder import load_autoencoder_model, detect_anomalies
 from models.cnn_classifier import classify_images
