@@ -57,7 +57,7 @@ if uploaded_file is not None:
     st.subheader("Classifying anomaly images using CNN...")
 
     cnn_model = load_model("models_saved/cnn_model.h5")
-    results = classify_images(cnn_model, folder_path="data/converted_images/Anomaly")
+    results = classify_images(cnn_model, image_dir="data/converted_images/Anomaly")
 
     st.subheader("Classification Results")
 
