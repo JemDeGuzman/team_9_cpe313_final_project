@@ -1,4 +1,4 @@
-import streamlit as st
+simport streamlit as st
 import pandas as pd
 import numpy as np
 import os
@@ -48,7 +48,7 @@ if uploaded_file is not None:
 
     st.subheader("Converting anomalous packets to RGB images...")
 
-    anomalous_samples = features_scaled[anomaly_flags == 1]
+    anomalous_samples = features[anomaly_flags == 1]
     st.write(anomalous_samples)
     df_anomalies = pd.DataFrame(anomalous_samples)
 
