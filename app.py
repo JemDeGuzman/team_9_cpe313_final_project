@@ -59,7 +59,7 @@ if uploaded_file is not None:
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
         st.image(img_rgb, caption="Generated Image", use_column_width=True)
 
-    display_image(paths[0)
+    display_image(paths[0])
 
     st.subheader("Classifying anomaly images using CNN...")
 
