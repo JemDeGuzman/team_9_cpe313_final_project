@@ -52,14 +52,14 @@ if uploaded_file is not None:
     label_name = "Anomaly"
     feature_count = 77
     
-    convert_to_images(df_anomalies, label_name, feature_count)
+    temp_paths = convert_to_images(df_anomalies, label_name, feature_count)
             
     st.success("Images created in 'data/converted_images/Anomaly/'")
 
     st.subheader("Classifying anomaly images using CNN...")
 
     cnn_model = load_model("models_saved/cnn_model.h5")
-    results = classify_images(cnn_model, image_dir="data/converted_images/Anomaly")
+    results = classify_images(cnn_model, image_dir=temp_paths)
 
     st.subheader("Classification Results")
 
