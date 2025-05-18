@@ -57,7 +57,7 @@ if uploaded_file is not None:
     feature_count = 77 
 
     if st.button("Generate Image from Anomalies"):
-        image_paths = convert_to_images(anomalous_df, "Anomalous", feature_count=77)
+        image_paths = convert_to_images(df_anomalies, "Anomalous", feature_count=77)
         for path in image_paths:
             display_image(path)
             
