@@ -51,8 +51,15 @@ if uploaded_file is not None:
     label_name = "Anomaly"
     feature_count = 77 
 
-    convert_to_images(df_anomalies, label_name, feature_count)
+    paths = convert_to_images(df_anomalies, label_name, feature_count)
     st.success("Images created in 'data/converted_images/Anomaly/'")
+
+    def display_image(image_path):
+        img = cv2.imread(image_path)
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+        st.image(img_rgb, caption="Generated Image", use_column_width=True)
+
+    display_image(paths[0)
 
     st.subheader("Classifying anomaly images using CNN...")
 
