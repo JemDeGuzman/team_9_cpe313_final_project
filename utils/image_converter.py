@@ -13,7 +13,7 @@ def convert_to_images(df, label_name, feature_count):
     chunk_size = feature_count * 3
     chunks = [df[i:i+chunk_size] for i in range(0, len(df), chunk_size)]
     
-    output_dir = os.path.join("converted_images", str(label_name))
+    output_dir = os.path.join("data/converted_images", str(label_name))
     os.makedirs(output_dir, exist_ok=True)
 
     for idx, chunk in enumerate(chunks):
