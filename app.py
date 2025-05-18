@@ -28,8 +28,6 @@ if uploaded_file is not None:
         parquet_paths=[parquet_path],
         train_on_benign_only=False
     )
-
-    st.write(features_scaled)
     
     input_dim = features_scaled.shape[1]
     st.write(f"Loaded {len(features_scaled)} samples with {input_dim} features each.")
@@ -52,15 +50,10 @@ if uploaded_file is not None:
     st.write(anomalous_samples)
     df_anomalies = pd.DataFrame(anomalous_samples)
 
-    st.write(df_anomalies.info())
-
     label_name = "Anomaly"
     feature_count = 77 
-
-    if label_name == 'Benign':
-        convert_to_images(df_anomalies, 'Benign', feature_count)
-    else:
-        convert_to_images(df_anomalies, label_name, feature_count)
+    
+    convert_to_images(df_anomalies, label_name, feature_count)
             
     st.success("Images created in 'data/converted_images/Anomaly/'")
 
