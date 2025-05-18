@@ -61,8 +61,8 @@ if uploaded_file is not None:
     image_paths = convert_to_images(df_anomalies, "Anomalous", feature_count=77)
 
     label_col = 'Label'
-    features = df.drop(columns=[label_col])
-    labels = df[label_col]
+    features = df_anomalies.drop(columns=[label_col])
+    labels = df_anomalies[label_col]
     df_scaled = features.copy()
     df_scaled[label_col] = labels
 
