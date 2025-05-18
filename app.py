@@ -47,13 +47,10 @@ if uploaded_file is not None:
     st.subheader("Converting anomalous packets to RGB images...")
 
     anomalous_samples = features[anomaly_flags == 1]
-    st.write(anomalous_samples)
     df_anomalies = pd.DataFrame(anomalous_samples)
 
     label_name = "Anomaly"
     feature_count = 77
-
-    st.write(anomaly_flags)
     
     convert_to_images(df_anomalies, label_name, feature_count)
             
