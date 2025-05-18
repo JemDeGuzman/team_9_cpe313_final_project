@@ -24,9 +24,9 @@ def classify_images(model, image_dir, target_size=(77, 77)):
     Returns a dict of {filename: prediction}.
     """
     results = {}
-    for filename in os.listdir(image_dir):
+    for filename in image_dir:
         if filename.lower().endswith(".png"):
-            path = os.path.join(image_dir, filename)
+            path = os.path.join(filename)
             img = preprocess_image(path, target_size)
             prediction = model.predict(img)
             predicted_label = np.argmax(prediction, axis=1)[0]
