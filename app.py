@@ -65,12 +65,6 @@ if uploaded_file is not None:
         convert_to_images(df_anomalies, 'Benign', feature_count)
     else:
         convert_to_images(df_anomalies, label_name, feature_count)
-    
-    feature_count = features.shape[1]
-    
-    if st.button("Generate Image from Anomalies"):
-        for path in image_paths:
-            display_image(path)
             
     st.success("Images created in 'data/converted_images/Anomaly/'")
 
