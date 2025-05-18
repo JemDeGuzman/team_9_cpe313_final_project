@@ -32,7 +32,7 @@ def convert_to_images(df, label_name, feature_count):
             channel_processed = np.clip(channel_processed, 0, 255).astype(np.uint8)
             img[:, :, channel] = channel_processed
 
-        with tempfile.NamedTemporaryFile(suffix=".png", delete=True, delete_on_close=True) as tmp_file:
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp_file:
             temp_img_path = tmp_file.name
             cv2.imwrite(temp_img_path, img)
 
