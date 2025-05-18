@@ -30,19 +30,15 @@ def convert_to_images(df, label_name, feature_count):
 
         for channel in range(3):
             channel_data = chunk.iloc[channel * feature_count : (channel + 1) * feature_count].to_numpy()
-            
-            # Handle NaNs and infinities first
             channel_data = np.nan_to_num(channel_data, nan=0.0, posinf=255.0, neginf=0.0)
-
-            # ✅ SCALE THE CHANNEL TO [0, 255] RIGHT HERE
-            channel_scaled = min_max_scale(channel_data)
-
-            # Final cleanup
-            channel_scaled = np.clip(channel_scaled, 0, 255).astype(np.uint8)
-
-            # Place into the image
-            img[:, :, channel] = channel_scaled.reshape((feature_count,))
-
+            channel_data = np.clip(channel_data, 0, 255).astype(np.uint8)
+            channel_data_flat = channel_data.flatten()
+            
+            if channel_data_flat.size != 77 * 77:
+                continue  # Skip if not enough data to fill the channel
+            
+            img[:, :, channel] = channel_data_flat.reshape((77, 77))
+            
         # Save the image
         filename = os.path.join(output_dir, f"{label_name}_{counter}.png")
         cv2.imwrite(filename, img)
