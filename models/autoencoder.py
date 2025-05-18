@@ -38,7 +38,7 @@ def get_reconstruction_errors(model, data_np):
         errors = torch.mean((data_tensor - reconstructed) ** 2, dim=1).numpy()
     return errors
 
-def detect_anomalies(model, data_np, threshold=None):
+def detect_anomalies(model, data_np, threshold=0.0201):
     errors = get_reconstruction_errors(model, data_np)
 
     if threshold is None:
