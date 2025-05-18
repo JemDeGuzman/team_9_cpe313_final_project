@@ -61,21 +61,10 @@ if uploaded_file is not None:
     label_name = "Anomaly"
     feature_count = 77 
 
-    image_paths = convert_to_images(df_anomalies, "Anomalous", feature_count=77)
-
-    label_col = 'Label'
-    features = df_anomalies.drop(columns=[label_col])
-    labels = df_anomalies[label_col]
-    df_scaled = features.copy()
-    df_scaled[label_col] = labels
-
-    # Convert each class
-    for label in df_scaled[label_col].unique():
-        class_data = df_scaled[df_scaled[label_col] == label].drop(columns=[label_col])
-        if label == 'Benign':
-            convert_to_images(class_data, 'Benign', feature_count)
-        else:
-            convert_to_images(class_data, label, feature_count)
+    if label == 'Benign':
+        convert_to_images(df_anomalies, 'Benign', feature_count)
+    else:
+        convert_to_images(df_anomalies, label, feature_count)
     
     feature_count = features.shape[1]
     
