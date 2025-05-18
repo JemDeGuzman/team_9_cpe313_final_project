@@ -61,10 +61,10 @@ if uploaded_file is not None:
     label_name = "Anomaly"
     feature_count = 77 
 
-    if label == 'Benign':
+    if label_name == 'Benign':
         convert_to_images(df_anomalies, 'Benign', feature_count)
     else:
-        convert_to_images(df_anomalies, label, feature_count)
+        convert_to_images(df_anomalies, label_name, feature_count)
     
     feature_count = features.shape[1]
     
