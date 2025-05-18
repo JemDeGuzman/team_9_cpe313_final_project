@@ -32,6 +32,8 @@ if uploaded_file is not None:
         parquet_paths=[parquet_path],
         train_on_benign_only=False
     )
+
+    st.write(features_scaled)
     
     input_dim = features_scaled.shape[1]
     st.write(f"Loaded {len(features_scaled)} samples with {input_dim} features each.")
@@ -51,6 +53,7 @@ if uploaded_file is not None:
     st.subheader("Converting anomalous packets to RGB images...")
 
     anomalous_samples = features_scaled[anomaly_flags == 1]
+    st.write(anomalous_samples)
     df_anomalies = pd.DataFrame(anomalous_samples)
 
     st.write(df_anomalies.info())
