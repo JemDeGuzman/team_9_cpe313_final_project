@@ -10,7 +10,7 @@ from utils.parquet_loader import load_and_preprocess_parquet
 from utils.image_converter import convert_to_images
 
 st.set_page_config(page_title="Network Anomaly Classifier", layout="wide")
-st.title("📡 Network Packet Anomaly Detection & Classification")
+st.title("Network Packet Anomaly Detection & Classification")
 
 uploaded_file = st.file_uploader("Upload a Parquet file", type=["parquet"])
 
