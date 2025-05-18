@@ -61,7 +61,8 @@ if uploaded_file is not None:
 
     st.subheader("Classification Results")
 
-    for image_name, predicted_class in results.items():
-        st.write(f"`{image_name}` → Prediction: **{predicted_class}**")
-
-    st.bar_chart(pd.Series(list(results.values())).value_counts())
+    if len(results) == 0:
+        st.write("NO!")
+    else:
+        for image_name, predicted_class in results.items():
+            st.write(f"`{image_name}` → Prediction: **{predicted_class}**")
