@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import cv2
 import os
+import tempfile
 
 benign_count = 0
 anom_count = 0
