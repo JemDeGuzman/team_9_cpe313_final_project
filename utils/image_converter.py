@@ -17,6 +17,8 @@ def convert_to_images(df, label_name, feature_count):
     output_dir = os.path.join("data/converted_images", str(label_name))
     os.makedirs(output_dir, exist_ok=True)
 
+    temp_paths = []
+    
     for idx, chunk in enumerate(chunks):
         if len(chunk) != chunk_size:
             continue
@@ -33,10 +35,9 @@ def convert_to_images(df, label_name, feature_count):
         with tempfile.NamedTemporaryFile(suffix=".png", delete=True, delete_on_close=True) as tmp_file:
             temp_img_path = tmp_file.name
             cv2.imwrite(temp_img_path, img)
-        
-        if label_name == 'Benign':
-            benign_count += 1
-        else:
-            anom_count += 1
-        counter += 1
+
+            temp_paths.append(temp_img_path)
+
+    return temp_paths
+            
 
