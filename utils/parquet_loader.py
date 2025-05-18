@@ -32,4 +32,4 @@ def load_and_preprocess_parquet(parquet_paths, label_column='Label', train_on_be
 
     features_scaled = scaler.transform(features)
 
-    return features_scaled, labels, full_df, scaler
+    return features_scaled, features, labels, full_df, scaler
