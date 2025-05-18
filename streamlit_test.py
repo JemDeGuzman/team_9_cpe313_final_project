@@ -99,6 +99,7 @@ def simulate_real_time(dataframe, model, threshold, scaler, chunk_size=231, feat
 st.title("Real-Time Packet Anomaly Detection")
 
 model = load_model("simple_autoencoder.pth")
+model.eval()
 scaler = joblib.load("trained_scaler.pkl") 
 threshold = 0.0201
 
