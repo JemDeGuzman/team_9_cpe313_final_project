@@ -104,6 +104,16 @@ scaler = joblib.load("trained_scaler.pkl")
 threshold = 0.0201
 
 uploaded_file = st.file_uploader("Upload Test Data (CSV/Parquet)", type=["csv", "parquet"])
+
 if uploaded_file:
     df = pd.read_parquet(uploaded_file) if uploaded_file.name.endswith(".parquet") else pd.read_csv(uploaded_file)
+
+    df = pd.read_parquet(uploaded_file) if uploaded_file.name.endswith(".parquet") else pd.read_csv(uploaded_file)
+
+    # Remove non-numeric columns
+    non_numeric_cols = df.select_dtypes(exclude=[np.number]).columns
+    if len(non_numeric_cols) > 0:
+        st.warning(f"Non-numeric columns were removed: {list(non_numeric_cols)}")
+    df = df.select_dtypes(include=[np.number])
+
     simulate_real_time(df, model, threshold, scaler)
