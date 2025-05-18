@@ -44,17 +44,17 @@ def load_model(model_path):
 # Create RGB image from packet data chunk
 def create_rgb_image(chunk, feature_count):
     chunk = chunk.flatten()
-    if len(chunk) != feature_count * 3:
-        raise ValueError("Invalid chunk size for image generation.")
+
+    expected_size = feature_count * feature_count * 3  # For 77x77 RGB
+    if len(chunk) != expected_size:
+        raise ValueError(f"Invalid chunk size for image generation. Expected {expected_size}, got {len(chunk)}.")
 
     img = np.zeros((feature_count, feature_count, 3), dtype=np.uint8)
 
     for i in range(3):
-        channel_data = chunk[i*feature_count:(i+1)*feature_count]
+        channel_data = chunk[i*feature_count*feature_count : (i+1)*feature_count*feature_count]
         channel_data = np.nan_to_num(channel_data, nan=0.0, posinf=255.0, neginf=0.0)
-        # Normalize each channel to 0–255 dynamically for better contrast
-        channel_data = (channel_data - np.min(channel_data)) / (np.max(channel_data) - np.min(channel_data) + 1e-8)
-        img[:, :, i] = (channel_data * 255).astype(np.uint8)
+        img[:, :, i] = np.clip(channel_data.reshape((feature_count, feature_count)), 0, 255).astype(np.uint8)
 
     return img
 
@@ -62,6 +62,8 @@ def create_rgb_image(chunk, feature_count):
 def simulate_real_time(dataframe, model, threshold, scaler, chunk_size=231, feature_count=77):
     buffer = deque()
     image_count = 0
+    
+    chunk_size = feature_count * feature_count
 
     # Ensure output directory exists
     os.makedirs("stream_output", exist_ok=True)
@@ -80,7 +82,7 @@ def simulate_real_time(dataframe, model, threshold, scaler, chunk_size=231, feat
         # If anomaly, add to buffer
         if error > threshold:
             buffer.append(raw)
-
+        
         # When buffer has enough data for an image
         if len(buffer) >= chunk_size:
             chunk = np.array([buffer.popleft() for _ in range(chunk_size)])
