@@ -30,7 +30,7 @@ if uploaded_file is not None:
 
     features_scaled, labels, full_df, scaler = load_and_preprocess_parquet(
         parquet_paths=[parquet_path],
-        train_on_benign_only=True
+        train_on_benign_only=False
     )
     
     input_dim = features_scaled.shape[1]
