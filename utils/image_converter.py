@@ -1,3 +1,11 @@
+import numpy as np
+import pandas as pd
+import cv2
+import os
+
+benign_count = 0
+anom_count = 0
+
 def convert_to_images(df, label_name, feature_count):
     global benign_count, anom_count
 
@@ -29,3 +37,4 @@ def convert_to_images(df, label_name, feature_count):
         else:
             anom_count += 1
         counter += 1
+
