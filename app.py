@@ -22,10 +22,9 @@ uploaded_file = st.file_uploader("Upload a Parquet file", type=["parquet"])
 if uploaded_file is not None:
     st.success("File uploaded successfully!")
 
-    #with tempfile.NamedTemporaryFile(delete=False, suffix=".parquet") as temp_file:
-    #    temp_file.write(uploaded_file.read())
-    #    parquet_path = temp_file.name
-    parquet_path = uploaded_file.read().name
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".parquet") as temp_file:
+        temp_file.write(uploaded_file.read())
+        parquet_path = temp_file.name
     
     st.subheader("Loading and preprocessing data...")
 
