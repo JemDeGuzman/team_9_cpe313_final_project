@@ -59,7 +59,7 @@ if uploaded_file is not None:
     
     temp_paths = convert_to_images(df_anomalies, label_name, feature_count)
             
-    st.success(f"{len(temp_paths} Images created in memory")
+    st.success(f"{len(temp_paths)} Images created in memory")
 
     st.subheader("Classifying anomaly images using CNN...")
 
