@@ -11,7 +11,7 @@ from utils.parquet_loader import load_and_preprocess_parquet
 from utils.image_converter import convert_to_images
 from collections import Counter
 
-classes = {'DrDoS_DNS': 0, 'DrDoS_LDAP': 1, 'DrDoS_MSSQL': 2, 'DrDoS_NTP': 3, 'DrDoS_NetBIOS': 4, 'DrDoS_SNMP': 5,
+class_labels = {'DrDoS_DNS': 0, 'DrDoS_LDAP': 1, 'DrDoS_MSSQL': 2, 'DrDoS_NTP': 3, 'DrDoS_NetBIOS': 4, 'DrDoS_SNMP': 5,
            'DrDoS_UDP': 6, 'LDAP': 7, 'MSSQL': 8, 'NetBIOS': 9, 'Portmap': 10,
            'Syn': 11, 'TFTP': 12, 'UDP': 13, 'UDP-lag': 14, 'WebDDoS': 15}
 
@@ -78,7 +78,7 @@ if uploaded_file is not None:
         counts = Counter(classes)
         max_count = max(counts.values())
         mode = [key for key, value in counts.items() if value == max_count][0]
-        mode_label = [key for key, value in classes.items() if value == mode][0]
+        mode_label = [key for key, value in class_labels.items() if value == mode][0]
         st.write(f"Overall Prediction: **{mode_label}**")
         
         
