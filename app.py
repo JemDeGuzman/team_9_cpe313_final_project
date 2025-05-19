@@ -59,7 +59,7 @@ if uploaded_file is not None:
     
     temp_paths = convert_to_images(df_anomalies, label_name, feature_count)
             
-    st.success("Images created in 'data/converted_images/Anomaly/'")
+    st.success(f"{len(temp_paths} Images created in memory")
 
     st.subheader("Classifying anomaly images using CNN...")
 
@@ -73,8 +73,9 @@ if uploaded_file is not None:
     else:
         classes = []
         for image_name, predicted_class in results.items():
-            st.write(f"`{image_name}` → Prediction: **{predicted_class}**")
-            classes.append(predicted_class)
+           predicted_label = [key for key, value in class_labels.items() if value == predicted_class][0]
+           st.write(f"`{image_name}` → Prediction: **{predicted_label}**")
+           classes.append(predicted_class)
         counts = Counter(classes)
         max_count = max(counts.values())
         mode = [key for key, value in counts.items() if value == max_count][0]
