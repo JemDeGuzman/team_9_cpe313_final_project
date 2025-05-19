@@ -9,6 +9,11 @@ from models.autoencoder import load_autoencoder_model, detect_anomalies
 from models.cnn_classifier import classify_images
 from utils.parquet_loader import load_and_preprocess_parquet
 from utils.image_converter import convert_to_images
+from collections import Counter
+
+classes = {'DrDoS_DNS': 0, 'DrDoS_LDAP': 1, 'DrDoS_MSSQL': 2, 'DrDoS_NTP': 3, 'DrDoS_NetBIOS': 4, 'DrDoS_SNMP': 5,
+           'DrDoS_UDP': 6, 'LDAP': 7, 'MSSQL': 8, 'NetBIOS': 9, 'Portmap': 10,
+           'Syn': 11, 'TFTP': 12, 'UDP': 13, 'UDP-lag': 14, 'WebDDoS': 15}
 
 st.set_page_config(page_title="Network Anomaly Classifier", layout="wide")
 st.title("Network Packet Anomaly Detection & Classification")
@@ -66,5 +71,14 @@ if uploaded_file is not None:
     if len(results) == 0:
         st.write("NO!")
     else:
+        classes = []
         for image_name, predicted_class in results.items():
             st.write(f"`{image_name}` → Prediction: **{predicted_class}**")
+            classes.append(predicted_class)
+        counts = Counter(classes)
+        max_count = max(counts.values())
+        mode = [key for key, value in counts.items() if value == max_count][0]
+        mode_label = [key for key, value in classes.items() if value == mode][0]
+        st.write(f"Overall Prediction: **{mode_label}**")
+        
+        
