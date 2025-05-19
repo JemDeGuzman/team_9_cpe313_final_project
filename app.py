@@ -79,6 +79,6 @@ if uploaded_file is not None:
         max_count = max(counts.values())
         mode = [key for key, value in counts.items() if value == max_count][0]
         mode_label = [key for key, value in class_labels.items() if value == mode][0]
-        st.write(f"Overall Prediction: **{mode_label}**")
+        st.subheader(f"Overall Prediction: **{mode_label}**")
         
         
