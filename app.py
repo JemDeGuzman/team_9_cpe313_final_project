@@ -4,7 +4,6 @@ import numpy as np
 import os
 import tempfile
 import cv2
-from PIL import Image
 from tensorflow.keras.models import load_model
 from models.autoencoder import load_autoencoder_model, detect_anomalies
 from models.cnn_classifier import classify_images
@@ -72,11 +71,21 @@ if uploaded_file is not None:
     if len(results) == 0:
         st.write("NO!")
     else:
-        classes = []
-        for image_name, predicted_class in results.items():
-           predicted_label = [key for key, value in class_labels.items() if value == predicted_class][0]
-           st.image(Image.open(image_name), caption=f"`{image_name}` → Prediction: **{predicted_label}**")
-           classes.append(predicted_class)
+           classes = []
+           st.subheader("Image Grid with Predictions")
+           columns_per_row = 3
+           cols = st.columns(columns_per_row)
+           for idx, (image_path, predicted_class) in enumerate(results.items()):
+                      predicted_label = [key for key, value in class_labels.items() if value == predicted_class][0]
+                          
+                      # Read the image
+                      img = cv2.imread(image_path)
+                      img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                          
+                          # Display in the appropriate column
+                      col = cols[idx % columns_per_row]
+                      col.image(img_rgb, caption=f"{predicted_label}", use_column_width=True)
+                      classes.append(predicted_class)
         counts = Counter(classes)
         max_count = max(counts.values())
         mode = [key for key, value in counts.items() if value == max_count][0]
