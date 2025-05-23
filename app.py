@@ -4,6 +4,7 @@ import numpy as np
 import os
 import tempfile
 import cv2
+from PIL import Image
 from tensorflow.keras.models import load_model
 from models.autoencoder import load_autoencoder_model, detect_anomalies
 from models.cnn_classifier import classify_images
@@ -74,7 +75,7 @@ if uploaded_file is not None:
         classes = []
         for image_name, predicted_class in results.items():
            predicted_label = [key for key, value in class_labels.items() if value == predicted_class][0]
-           st.write(f"`{image_name}` → Prediction: **{predicted_label}**")
+           st.image(Image.open(image_name), caption=f"`{image_name}` → Prediction: **{predicted_label}**")
            classes.append(predicted_class)
         counts = Counter(classes)
         max_count = max(counts.values())
