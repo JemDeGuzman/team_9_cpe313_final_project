@@ -86,10 +86,10 @@ if uploaded_file is not None:
                       col = cols[idx % columns_per_row]
                       col.image(img_rgb, caption=f"{predicted_label}", use_column_width=True)
                       classes.append(predicted_class)
-        counts = Counter(classes)
-        max_count = max(counts.values())
-        mode = [key for key, value in counts.items() if value == max_count][0]
-        mode_label = [key for key, value in class_labels.items() if value == mode][0]
-        st.subheader(f"Overall Prediction: **{mode_label}**")
-        
+           counts = Counter(classes)
+           max_count = max(counts.values())
+           mode = [key for key, value in counts.items() if value == max_count][0]
+           mode_label = [key for key, value in class_labels.items() if value == mode][0]
+           st.subheader(f"Overall Prediction: **{mode_label}**")
+                   
         
